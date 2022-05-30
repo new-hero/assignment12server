@@ -24,12 +24,6 @@ async function run() {
         const ordersCollection = client.db('Tools-service').collection('orders');
         const usersCollection = client.db('Tools-service').collection('users');
 
-        // app.post('/inventory', async (req, res) => {
-        //     const newdevice = req.body;
-        //     const devices = await deviceCollection.insertOne(newdevice)
-        //     res.send(devices)
-        // })
-
         app.get('/tools', async (req, res) => {
             const query = {};
             const cursor = toolsCollection.find(query);
@@ -92,7 +86,6 @@ async function run() {
             
         })
         
-
         app.get('/orders', async (req, res) => {
             const tools = ordersCollection.find().toArray();
             res.send(tools)
@@ -115,22 +108,6 @@ async function run() {
             res.send(result)
         })
    
-  
-
-
-        // app.delete('/inventory/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: ObjectId(id) }
-        //     const result = await deviceCollection.deleteOne(query);
-        //     res.send(result)
-        // })
-
-        // app.get('/update/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const query = { _id: ObjectId(id) }
-        //     const result = await deviceCollection.findOne(query);
-        //     res.send(result)
-        // })
 
     }
     finally {
