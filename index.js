@@ -66,25 +66,25 @@ async function run() {
             res.send({result, token })
         })
 
-        app.put('/user/admin/:email', async (req, res) => {
-            const email = req.params.email;
-            const currentUser = { email: email }
-            const requester=req.headers.authorization;
-            const query= {email:requester}
-            const requestUser= usersCollection.findOne(query);
-            if(requestUser.role ==='admin'){
+        // app.put('/user/admin/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     const currentUser = { email: email }
+        //     const requester=req.headers.authorization;
+        //     const query= {email:requester}
+        //     const requestUser= usersCollection.findOne(query);
+        //     if(requestUser.role ==='admin'){
   
-                const setRole = {
-                    $set: {role: 'admin'},
+        //         const setRole = {
+        //             $set: {role: 'admin'},
                     
-                }
-                const result = await usersCollection.updateOne(currentUser, setRole)
+        //         }
+        //         const result = await usersCollection.updateOne(currentUser, setRole)
                
-                res.send(result)
-            }
+        //         res.send(result)
+        //     }
                     
             
-        })
+        // })
         
 
    
