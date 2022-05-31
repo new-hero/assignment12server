@@ -5,7 +5,7 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const { verify } = require('jsonwebtoken');
+
 
 
 app.use(cors());
@@ -119,7 +119,7 @@ run().catch(console.dir)
 
 
 app.get('/', (req, res) => {
-    res.send('Look i am here')
+    res.send('server is ok')
 })
 app.listen(port, () => {
     console.log('Crud server is running');
