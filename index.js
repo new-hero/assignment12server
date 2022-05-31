@@ -71,7 +71,7 @@ async function run() {
             const currentUser = { email: email }
             const requester=req.headers.authorization;
             const query= {email:requester}
-            const requestUser= await usersCollection.findOne(query);
+            const requestUser= usersCollection.findOne(query);
             if(requestUser.role ==='admin'){
   
                 const setRole = {
@@ -86,27 +86,7 @@ async function run() {
             
         })
         
-        app.get('/orders', async (req, res) => {
-            const tools = ordersCollection.find().toArray();
-            res.send(tools)
-        })
 
-        app.put('/purchse/:id', async (req, res) => {
-            const id = req.params.id;
-      
-            const order = req.body;
-            const query = { _id: ObjectId(id) }
-            const wish = { upsert: true }
-
-            const setOrder = {
-                $set: {
-                    order
-                }
-            }
-
-            const result = await ordersCollection.updateOne(query, setOrder, wish)
-            res.send(result)
-        })
    
 
     }
