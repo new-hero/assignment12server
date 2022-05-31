@@ -43,13 +43,32 @@ async function run() {
             const result = await toolsCollection.findOne(query);
             res.send(result)
         })
-
+        
+        app.put('/orders', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const order = req.body;
+                const wish = { upsert: true }
+            const setOrder = {
+                $set: order,
+                
+            }
+            const result = await ordersCollection.updateOne(query, setOrder, wish)
+            res.send(result)
+        })
         app.get('/users', async (req, res) => {
             const query = {};
             const cursor = usersCollection.find(query);
             const users = await cursor.toArray();
             res.send(users)
         })
+        app.get('/orders', async (req, res) => {
+            const query = {};
+            const cursor = ordersCollection.find(query);
+            const orders = await cursor.toArray();
+            res.send(orders)
+            })
+
         app.put('/user/:email', async (req, res) => {
             const email = req.params.email;
             const user = req.body;
@@ -62,8 +81,13 @@ async function run() {
             }
             const result = await usersCollection.updateOne(currentUser, setUser, wish)
             const token = jwt.sign({email:email}, process.env.DB_USER_TOKEN, {expiresIn:'30d'});
-            
             res.send({result, token })
+        })
+        app.get('/users', async (req, res) => {
+            const query = {};
+            const cursor = usersCollection.find(query);
+            const users = await cursor.toArray();
+            res.send(users)
         })
 
         app.put('/user/admin/:email', async (req, res) => {
