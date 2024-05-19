@@ -38,7 +38,7 @@ async function run() {
       const query = { _id: ObjectId(id) };
       const result = await toolsCollection.updateOne(query, {
         $set: {
-          quantity:doc.quantity
+          quantity: doc.quantity,
         },
       });
       res.send(result);
@@ -93,6 +93,20 @@ async function run() {
         expiresIn: "30d",
       });
       res.send({ result, token });
+    });
+
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const query = user.email;
+      const exist = await usersCollection.findOne({ email: query });
+      if (exist) {
+        return;
+      }
+      const result = await usersCollection.insertOne({
+        email: user.email,
+        role: "user",
+      });
+      res.send(user);
     });
 
     app.get("/user", async (req, res) => {
